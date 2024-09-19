@@ -1,10 +1,19 @@
-import { build } from "esbuild";
+import { build, context } from "esbuild";
 import { glob } from "glob";
 import { sassPlugin } from "esbuild-sass-plugin";
 import manifestPlugin from "esbuild-plugin-manifest";
 import path from "path";
 import { copy } from "esbuild-plugin-copy";
 import globImport from "esbuild-plugin-glob-import";
+
+const isDev = process.env.NODE_ENV === "development";
+
+// NOTE: Custom logger to surpress warnings, this is to avoid bloated build logs caused by third party code
+const silentLogger = {
+  warn: () => {},
+  info: () => {},
+  error: console.error,
+};
 
 const buildClient = async () => {
   const entryPoints = await Promise.all([
@@ -13,13 +22,15 @@ const buildClient = async () => {
     glob("./functions/*/*.client.ts"),
   ]).then((paths) => paths.flat());
 
-  return build({
+  const buildOptions = {
     entryPoints,
     bundle: true,
     outdir: "dist/public",
     plugins: [
       globImport(),
-      sassPlugin(),
+      sassPlugin({
+        logger: silentLogger,
+      }),
       manifestPlugin({
         // NOTE: This is always relative to `outdir`
         filename: "../../server/client-manifest.json",
@@ -37,32 +48,38 @@ const buildClient = async () => {
       ".ts": "tsx",
       ".scss": "css",
     },
-    entryNames: "[name].[hash]",
-    minify: true,
-    sourcemap: "linked",
+    entryNames: isDev ? "[name]" : "[name].[hash]",
+    minify: !isDev,
+    sourcemap: true,
     platform: "browser",
     format: "esm",
     splitting: true,
-    minify: true,
-    sourcemap: true,
     loader: {
       ".woff": "file",
       ".woff2": "file",
     },
-  });
+  };
+
+  if (isDev) {
+    const ctx = await context(buildOptions);
+    await ctx.watch();
+    console.log("Watching client files for changes...");
+  } else {
+    return build(buildOptions);
+  }
 };
 
-const buildServer = () => {
+const buildServer = async () => {
   const entryPoints = glob.sync("./functions/*/*.server.ts");
 
-  build({
+  const buildOptions = {
     entryPoints,
     bundle: true,
     platform: "node",
     target: "node20",
     outdir: "dist/functions",
     external: ["@azure/functions-core"],
-    minify: true,
+    minify: !isDev,
     sourcemap: true,
     entryNames: "[dir]/index",
     plugins: [
@@ -77,7 +94,15 @@ const buildServer = () => {
         ],
       }),
     ],
-  });
+  };
+
+  if (isDev) {
+    const ctx = await context(buildOptions);
+    await ctx.watch();
+    console.log("Watching server files for changes...");
+  } else {
+    return build(buildOptions);
+  }
 };
 
 buildClient()

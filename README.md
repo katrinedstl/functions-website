@@ -24,10 +24,20 @@ npm ci
 npm run build
 ```
 
-The result of the builds are written to `./dist`.
+The builds are done using [esbuild](https://esbuild.github.io/). The result of the builds are written to `./dist`.
 
 ## 🏃‍♀️ Run
 
 ```sh
 npm run start
 ```
+
+## 👩‍💻 Development
+
+To watch for changes while developing, you can run
+
+```sh
+npm run build:dev
+```
+
+Note that you still have to run your function app using the run-command (`npm run start`)
