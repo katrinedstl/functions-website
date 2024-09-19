@@ -1,4 +1,4 @@
-import { hydrate } from "../../client/hydrator";
-import Root from "./root.page";
+import { hydrate } from '../../client/hydrator';
+import Root from './root.page';
 
-hydrate(Root, "Root");
+hydrate(Root, 'Root');

@@ -1,15 +1,15 @@
-import type { HttpHandler } from "@azure/functions";
-import { app } from "@azure/functions";
+import type { HttpHandler } from '@azure/functions';
+import { app } from '@azure/functions';
 
-import { toHtmlResponse } from "../../server/to-html-response";
+import { toHtmlResponse } from '../../server/to-html-response';
 
-import Root from "./root.page";
-import { texts } from "./root.texts";
+import Root from './root.page';
+import { texts } from './root.texts';
 
-const handler: HttpHandler = async (request, context) => {
+const handler: HttpHandler = async (_request, _context) => {
   return toHtmlResponse({
     component: Root,
-    componentName: "Root",
+    componentName: 'Root',
     title: texts.title,
     props: {
       title: texts.title,
@@ -17,8 +17,8 @@ const handler: HttpHandler = async (request, context) => {
   });
 };
 
-app.http("root", {
+app.http('root', {
   handler,
-  methods: ["GET"],
-  route: "/",
+  methods: ['GET'],
+  route: '/',
 });

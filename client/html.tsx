@@ -1,7 +1,7 @@
-import React from "react";
-import serialize from "serialize-javascript";
+import React from 'react';
+import serialize from 'serialize-javascript';
 
-import type { Html as Props } from "./html.types";
+import type { Html as Props } from './html.types';
 
 const Html: React.FC<React.PropsWithChildren<Props>> = ({
   attributes,
@@ -14,7 +14,7 @@ const Html: React.FC<React.PropsWithChildren<Props>> = ({
 }) => (
   <html lang="en" {...attributes}>
     <head>
-      {css.map((file) => (
+      {css.map(file => (
         <link key={file} rel="stylesheet" href={file} />
       ))}
       <meta charSet="utf-8" />
@@ -33,7 +33,7 @@ const Html: React.FC<React.PropsWithChildren<Props>> = ({
         data-props={componentName}
         type="application/json"
       />
-      {js.map((file) => (
+      {js.map(file => (
         <script key={file} src={file} />
       ))}
     </body>

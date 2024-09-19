@@ -1,3 +1,3 @@
 export const texts = {
-  title: "Welcome!",
+  title: 'Welcome!',
 };

@@ -1,7 +1,7 @@
-import { renderHtml, RenderHtmlOutcome } from "./render-html";
-import { createHttpResponse } from "./response-helpers";
+import { renderHtml, RenderHtmlOutcome } from './render-html';
+import { createHttpResponse } from './response-helpers';
 
-export const toHtmlResponse = async (data) => {
+export const toHtmlResponse = async data => {
   const html = await renderHtml(data);
 
   switch (html.outcome) {

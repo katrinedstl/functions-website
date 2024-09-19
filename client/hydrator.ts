@@ -1,9 +1,9 @@
-import { createElement, type FunctionComponent } from "react";
-import { hydrateRoot } from "react-dom/client";
+import { createElement, type FunctionComponent } from 'react';
+import { hydrateRoot } from 'react-dom/client';
 
 export const hydrate = <T extends FunctionComponent>(
   component: T,
-  componentName: string
+  componentName: string,
 ) => {
   const mountNode = document.querySelector(`[mount-point="${componentName}"]`);
   if (!mountNode) {
@@ -22,5 +22,5 @@ export const hydrate = <T extends FunctionComponent>(
   }
 
   hydrateRoot(mountNode, createElement(component, JSON.parse(props)));
-  document.documentElement.setAttribute("data-hydrated", `${Date.now()}`);
+  document.documentElement.setAttribute('data-hydrated', `${Date.now()}`);
 };

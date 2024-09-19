@@ -1,4 +1,4 @@
-import { HttpResponse } from "@azure/functions";
+import { HttpResponse } from '@azure/functions';
 
 export const createHttpResponse = ({
   html,
@@ -10,8 +10,8 @@ export const createHttpResponse = ({
   new HttpResponse({
     body: html,
     headers: {
-      "Cache-Control": "no-store",
-      "Content-Type": "text/html",
+      'Cache-Control': 'no-store',
+      'Content-Type': 'text/html',
     },
     status,
   });

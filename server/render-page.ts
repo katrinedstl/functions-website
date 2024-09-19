@@ -1,9 +1,9 @@
-import React from "react";
-import ReactDOMServer from "react-dom/server";
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 
-import Html from "../client/html";
-import type { Html as HtmlProps } from "../client/html.types";
-import { scriptUrls, styleUrls } from "./client-manifest";
+import Html from '../client/html';
+import type { Html as HtmlProps } from '../client/html.types';
+import { scriptUrls, styleUrls } from './client-manifest';
 
 export const renderPage = <T extends object>({
   component,
@@ -18,8 +18,8 @@ export const renderPage = <T extends object>({
 }) => {
   const htmlProps: HtmlProps = {
     attributes: {
-      "data-component-name": componentName,
-      "data-rendered-at": String(Date.now()),
+      'data-component-name': componentName,
+      'data-rendered-at': String(Date.now()),
     },
     props,
     css: styleUrls,
@@ -31,7 +31,7 @@ export const renderPage = <T extends object>({
   const element = React.createElement(
     Html,
     htmlProps,
-    React.createElement(component, props)
+    React.createElement(component, props),
   );
 
   return `<!doctype html>${ReactDOMServer.renderToString(element)}`;

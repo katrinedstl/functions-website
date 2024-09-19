@@ -1,15 +1,15 @@
-import { type HttpRequest, HttpResponse, app } from "@azure/functions";
-import { promises as fsp } from "fs";
-import path from "path";
+import { type HttpRequest, HttpResponse, app } from '@azure/functions';
+import { promises as fsp } from 'fs';
+import path from 'path';
 
 const toLocalUrl = (input: HttpRequest | string, removeSearch?: boolean) => {
   const url = new URL(
-    typeof input === "string" ? input : input.url,
-    "https://example.com"
+    typeof input === 'string' ? input : input.url,
+    'https://example.com',
   );
 
   if (removeSearch) {
-    url.search = "";
+    url.search = '';
 
     return url.pathname;
   }
@@ -18,26 +18,26 @@ const toLocalUrl = (input: HttpRequest | string, removeSearch?: boolean) => {
 };
 
 const fileContentTypes: Record<string, string> = {
-  ".css": "text/css",
-  ".js": "text/javascript",
-  ".json": "application/json",
-  ".map": "application/json",
-  ".png": "image/png",
-  ".svg": "image/svg+xml",
-  ".woff": "application/octet-stream",
-  ".woff2": "application/octet-stream",
-  ".xml": "application/xml",
+  '.css': 'text/css',
+  '.js': 'text/javascript',
+  '.json': 'application/json',
+  '.map': 'application/json',
+  '.png': 'image/png',
+  '.svg': 'image/svg+xml',
+  '.woff': 'application/octet-stream',
+  '.woff2': 'application/octet-stream',
+  '.xml': 'application/xml',
 };
 
 const getFile = async (
-  request: HttpRequest
+  request: HttpRequest,
 ): Promise<[fileContent: Buffer, fileSize: string, mimeType: string] | []> => {
-  const publicDirectoryPath = path.join(process.cwd(), "public");
+  const publicDirectoryPath = path.join(process.cwd(), 'public');
   const filePath = path.resolve(
     path.join(
       publicDirectoryPath,
-      toLocalUrl(request.url).replace(/^\/public/, "")
-    )
+      toLocalUrl(request.url).replace(/^\/public/, ''),
+    ),
   );
 
   if (!filePath.startsWith(publicDirectoryPath)) {
@@ -57,23 +57,23 @@ const getFile = async (
     return [
       data,
       String(size),
-      fileContentTypes[path.extname(filePath)] || "application/octet-stream",
+      fileContentTypes[path.extname(filePath)] || 'application/octet-stream',
     ];
   } catch {
     return [];
   }
 };
 
-app.http("static-files", {
-  handler: async (request) => {
+app.http('static-files', {
+  handler: async request => {
     const [data, size, type] = await getFile(request);
     if (data && size && type) {
       return new HttpResponse({
         body: data,
         headers: {
-          "Cache-Control": "public, max-age=31556926",
-          "Content-Length": size,
-          "Content-Type": type,
+          'Cache-Control': 'public, max-age=31556926',
+          'Content-Length': size,
+          'Content-Type': type,
         },
         status: 200,
       });
@@ -81,6 +81,6 @@ app.http("static-files", {
 
     return new HttpResponse({ status: 404 });
   },
-  methods: ["GET"],
-  route: "public/{*path}",
+  methods: ['GET'],
+  route: 'public/{*path}',
 });

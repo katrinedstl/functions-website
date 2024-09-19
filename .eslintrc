@@ -1,0 +1,55 @@
+{
+  "root": true,
+  "plugins": ["prettier", "@typescript-eslint"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+  ],
+  "env": {
+    "es6": true,
+  },
+  "parser": "@typescript-eslint/parser",
+  "rules": {
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/ban-types": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-redeclare": "error",
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "args": "after-used",
+        "argsIgnorePattern": "(^_|^next$)",
+      },
+    ],
+    "arrow-parens": ["warn", "as-needed"],
+    "eqeqeq": "warn",
+    "no-console": "warn",
+    "no-dupe-args": "error",
+    "no-dupe-keys": "error",
+    "no-irregular-whitespace": "warn",
+    "no-use-before-define": "off",
+    "no-warning-comments": "warn",
+    "prettier/prettier": [
+      "warn",
+      {
+        "endOfLine": "auto",
+        "singleQuote": true,
+      },
+    ],
+    "semi": "warn",
+    "strict": "off",
+  },
+  "overrides": [
+    {
+      "files": ["**/*.js", "**/*.ts"],
+      "rules": {
+        "@typescript-eslint/no-var-requires": "off",
+      },
+    },
+  ],
+}

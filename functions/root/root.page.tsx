@@ -1,10 +1,18 @@
-import React from "react";
+import React from 'react';
 
-import type { Root as Props } from "./root.props";
+import Text from 'sats-ui-lib/react/text';
+
+import type { Root as Props } from './root.props';
 
 const Root: React.FunctionComponent<Props> = ({ title }) => (
   <div className="root">
-    <h1>{title}</h1>
+    <Text
+      elementName="h1"
+      size={Text.sizes.headline1}
+      theme={Text.themes.emphasis}
+    >
+      {title}
+    </Text>
   </div>
 );
 

@@ -1,12 +1,12 @@
-import { renderPage } from "./render-page";
+import { renderPage } from './render-page';
 
 export enum RenderHtmlOutcome {
-  Failure = "failure",
-  Success = "success",
+  Failure = 'failure',
+  Success = 'success',
 }
 
 export const renderHtml = async (
-  data
+  data,
 ): Promise<
   | { outcome: RenderHtmlOutcome.Success; value: string }
   | { outcome: RenderHtmlOutcome.Failure; value: string }
@@ -21,7 +21,7 @@ export const renderHtml = async (
       value:
         error instanceof Error
           ? error.toString()
-          : "Unknown error rendering HTML",
+          : 'Unknown error rendering HTML',
     };
   }
 };

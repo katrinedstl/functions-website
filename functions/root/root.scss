@@ -1,9 +1,4 @@
-// @use "sats-ui-lib/tokens/light";
+@use 'sats-ui-lib/tokens/light';
 
 .root {
-  // background-color: light.$background-primary;
-  display: grid;
-  grid-template-rows: auto 1fr;
-  min-height: 100vh;
-  min-height: 100dvh;
 }
