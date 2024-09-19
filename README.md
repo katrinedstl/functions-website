@@ -46,9 +46,9 @@ In the `functions` folder you can find all the functions this app can run.
 
 The primary role of this app is to render HTML pages in response to user requests. Inside the `functions` folder, you’ll find examples of functions that perform this, such as `functions/root`.
 
-`*.server.ts` handles page building when a request reaches the server.
-`*.page.tsx` defines the page component that will be rendered.
-`*.scss` provides the styles for the page, following the BEM naming convention.
+- `*.server.ts` handles page building when a request reaches the server.
+- `*.page.tsx` defines the page component that will be rendered.
+- `*.scss` provides the styles for the page, following the BEM naming convention.
 
 ### 🗄️ Server
 
