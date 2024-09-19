@@ -39,7 +39,7 @@ const getFile = async (
       toLocalUrl(request.url).replace(/^\/public/, "")
     )
   );
-  console.log("FILEPATH ", filePath);
+
   if (!filePath.startsWith(publicDirectoryPath)) {
     // NOTE: Someone might be trying to read files from
     // other directories by requesting things with
