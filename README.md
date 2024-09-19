@@ -22,8 +22,6 @@ touch server/local.settings.json
 
 See [`example.local.settings.json`](./example.local.settings.json) for an example.
 
-See [`settings.md`](./settings.md) for more information about the different settings.
-
 ### ⬇️ Get Dependencies
 
 ```sh
