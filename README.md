@@ -12,16 +12,6 @@ The server is implemented on [Node.js](https://nodejs.org/) running on [Azure Fu
 
 ## How to run the website
 
-### ⚙️ Settings
-
-Create a local settings file:
-
-```bash
-touch server/local.settings.json
-```
-
-See [`example.local.settings.json`](./example.local.settings.json) for an example.
-
 ### ⬇️ Get Dependencies
 
 ```sh
