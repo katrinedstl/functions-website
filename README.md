@@ -1,6 +1,6 @@
 # ⚡️ Website running on Azure Functions
 
-This is a simple website renderer running on Azure Functions. This is created for test purposes and should probably not be used in production.
+This is a simple website running on Azure Functions. This is created for test purposes and should probably not be used in production.
 
 ## ⚛️ Client
 
