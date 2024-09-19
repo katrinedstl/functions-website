@@ -3,6 +3,7 @@ import { glob } from "glob";
 import { sassPlugin } from "esbuild-sass-plugin";
 import manifestPlugin from "esbuild-plugin-manifest";
 import path from "path";
+import { copy } from "esbuild-plugin-copy";
 
 const buildClient = async () => {
   const entryPoints = await Promise.all([
@@ -57,6 +58,18 @@ const buildServer = () => {
     minify: true,
     sourcemap: true,
     entryNames: "[dir]/index",
+    plugins: [
+      copy({
+        assets: [
+          { from: "./server/package.json", to: "../package.json" },
+          {
+            from: "./server/local.settings.json",
+            to: "../local.settings.json",
+          },
+          { from: "./server/host.json", to: "../host.json" },
+        ],
+      }),
+    ],
   });
 };
 

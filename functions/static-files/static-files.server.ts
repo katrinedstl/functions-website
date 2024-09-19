@@ -2,6 +2,21 @@ import { type HttpRequest, HttpResponse, app } from "@azure/functions";
 import { promises as fsp } from "fs";
 import path from "path";
 
+const toLocalUrl = (input: HttpRequest | string, removeSearch?: boolean) => {
+  const url = new URL(
+    typeof input === "string" ? input : input.url,
+    "https://example.com"
+  );
+
+  if (removeSearch) {
+    url.search = "";
+
+    return url.pathname;
+  }
+
+  return `${url.pathname}${url.search}`;
+};
+
 const fileContentTypes: Record<string, string> = {
   ".css": "text/css",
   ".js": "text/javascript",
@@ -19,7 +34,10 @@ const getFile = async (
 ): Promise<[fileContent: Buffer, fileSize: string, mimeType: string] | []> => {
   const publicDirectoryPath = path.join(process.cwd(), "public");
   const filePath = path.resolve(
-    path.join(publicDirectoryPath, request.url.replace(/^\/public/, ""))
+    path.join(
+      publicDirectoryPath,
+      toLocalUrl(request.url).replace(/^\/public/, "")
+    )
   );
 
   if (!filePath.startsWith(publicDirectoryPath)) {
