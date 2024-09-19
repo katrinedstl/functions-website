@@ -26,18 +26,30 @@ npm run build
 
 The builds are done using [esbuild](https://esbuild.github.io/). The result of the builds are written to `./dist`.
 
-## 🏃‍♀️ Run
+To watch for changes while developing, you can run
+
+```sh
+npm run watch
+```
+
+### 🏃‍♀️ Run
 
 ```sh
 npm run start
 ```
 
-## 👩‍💻 Development
+## 🧱 Code structure
 
-To watch for changes while developing, you can run
+In the `functions` folder you can find all the functions this app can run.
 
-```sh
-npm run build:dev
-```
+### 📃 Pages
 
-Note that you still have to run your function app using the run-command (`npm run start`)
+The primary role of this app is to render HTML pages in response to user requests. Inside the `functions` folder, you’ll find examples of functions that perform this, such as `functions/root`.
+
+`*.server.ts` handles page building when a request reaches the server.
+`*.page.tsx` defines the page component that will be rendered.
+`*.scss` provides the styles for the page, following the BEM naming convention.
+
+### 🗄️ Server
+
+The `server` folder contains utils essential for the server. It includes logic to render React components as HTML on the server and settings required to run Azure Functions. These configurations are copied during the build process and should not be moved.

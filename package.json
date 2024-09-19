@@ -4,7 +4,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development func start --port 8080 --script-root dist",
     "build": "node build/build.js",
-    "build:dev": "cross-env NODE_ENV=development node build/build.js",
+    "watch": "cross-env NODE_ENV=development node build/build.js",
     "clean": "rimraf ./dist"
   },
   "engines": {
