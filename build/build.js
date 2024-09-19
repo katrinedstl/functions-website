@@ -53,8 +53,7 @@ const buildClient = async () => {
     minify: !isDev,
     sourcemap: true,
     platform: 'browser',
-    format: 'esm',
-    splitting: true,
+    format: 'iife',
     loader: {
       '.woff': 'file',
       '.woff2': 'file',
@@ -82,6 +81,7 @@ const buildServer = async () => {
     external: ['@azure/functions-core'],
     minify: !isDev,
     sourcemap: true,
+    format: 'cjs',
     entryNames: '[dir]/index',
     plugins: [
       copy({

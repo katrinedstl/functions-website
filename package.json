@@ -2,9 +2,9 @@
   "name": "functions-website",
   "version": "1.0.0",
   "scripts": {
-    "start": "func start --port 8080 --script-root dist",
+    "start": "cross-env NODE_ENV=development func start --port 8080 --script-root dist",
     "build": "node build/build.js",
-    "build:dev": "NODE_ENV=development node build/build.js",
+    "build:dev": "cross-env NODE_ENV=development node build/build.js",
     "clean": "rimraf ./dist"
   },
   "engines": {
@@ -25,6 +25,7 @@
     "@typescript-eslint/eslint-plugin": "^8.6.0",
     "@typescript-eslint/parser": "^8.6.0",
     "azure-functions-core-tools": "^4.0.6280",
+    "cross-env": "^7.0.3",
     "esbuild": "^0.23.1",
     "esbuild-plugin-copy": "^2.1.1",
     "esbuild-plugin-glob-import": "^0.2.0",

@@ -32,12 +32,17 @@ const fileContentTypes: Record<string, string> = {
 const getFile = async (
   request: HttpRequest,
 ): Promise<[fileContent: Buffer, fileSize: string, mimeType: string] | []> => {
+  const _localUrl = toLocalUrl(request);
+
+  // NOTE: We need to slice off a possible query in order to find the file in the file system
+  const questionMarkIndex = _localUrl.indexOf('?');
+  const querylessLocalUrl =
+    questionMarkIndex === -1
+      ? _localUrl
+      : _localUrl.slice(0, questionMarkIndex);
   const publicDirectoryPath = path.join(process.cwd(), 'public');
   const filePath = path.resolve(
-    path.join(
-      publicDirectoryPath,
-      toLocalUrl(request.url).replace(/^\/public/, ''),
-    ),
+    path.join(publicDirectoryPath, querylessLocalUrl.replace(/^\/public/, '')),
   );
 
   if (!filePath.startsWith(publicDirectoryPath)) {
@@ -71,7 +76,10 @@ app.http('static-files', {
       return new HttpResponse({
         body: data,
         headers: {
-          'Cache-Control': 'public, max-age=31556926',
+          'Cache-Control':
+            process.env.NODE_ENV === 'development'
+              ? 'no-store'
+              : 'public, max-age=31556926',
           'Content-Length': size,
           'Content-Type': type,
         },

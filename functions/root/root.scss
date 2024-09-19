@@ -1,4 +1,19 @@
 @use 'sats-ui-lib/tokens/light';
+@use 'sats-ui-lib/tokens/spacing';
+@use 'sats-ui-lib/tokens/corner-radius';
 
 .root {
+  display: flex;
+  flex-direction: column;
+  gap: spacing.$m;
+  margin: spacing.$m;
+
+  &__test {
+    border-radius: corner-radius.$s;
+    color: light.$on-signal-surface-success-default;
+    background-color: light.$signal-surface-success;
+    padding: spacing.$m;
+    margin: spacing.$m;
+    max-width: 400px;
+  }
 }
