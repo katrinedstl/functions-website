@@ -31,8 +31,7 @@ npm ci
 ### 👷‍♀️ Build
 
 ```sh
-npm run clean
-npm run build:dev
+npm run build
 ```
 
 The result of the builds are written to `./dist`.
@@ -40,6 +39,5 @@ The result of the builds are written to `./dist`.
 ## 🏃‍♀️ Run
 
 ```sh
-npm run build
 npm run start
 ```
