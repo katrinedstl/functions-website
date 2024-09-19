@@ -2,4 +2,4 @@ local.settings.json
 node_modules
 dist
 .vscode
-./server/client-manifest.json
+client-manifest.json
