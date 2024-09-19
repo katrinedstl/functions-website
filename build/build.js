@@ -4,9 +4,11 @@ import { sassPlugin } from "esbuild-sass-plugin";
 import manifestPlugin from "esbuild-plugin-manifest";
 import path from "path";
 import { copy } from "esbuild-plugin-copy";
+import globImport from "esbuild-plugin-glob-import";
 
 const buildClient = async () => {
   const entryPoints = await Promise.all([
+    glob("./shared-ui/style.ts"),
     glob("./functions/**/*.scss"),
     glob("./functions/*/*.client.ts"),
   ]).then((paths) => paths.flat());
@@ -16,6 +18,7 @@ const buildClient = async () => {
     bundle: true,
     outdir: "dist/public",
     plugins: [
+      globImport(),
       sassPlugin(),
       manifestPlugin({
         // NOTE: This is always relative to `outdir`
@@ -42,6 +45,10 @@ const buildClient = async () => {
     splitting: true,
     minify: true,
     sourcemap: true,
+    loader: {
+      ".woff": "file",
+      ".woff2": "file",
+    },
   });
 };
 
